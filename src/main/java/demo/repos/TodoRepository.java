@@ -7,11 +7,16 @@ package demo.repos;
 
 import demo.entities.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  *
  * @author nat
  */
+@PreAuthorize("hasRole('ROLE_USER')")
 public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    Todo save(Todo s);
 }
